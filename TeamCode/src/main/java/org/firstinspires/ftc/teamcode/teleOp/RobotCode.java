@@ -8,11 +8,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp (name = "Robot")
+@TeleOp (name = "TestDrive")
 public class RobotCode extends OpMode {
 
 
-    //Testtestesttstetgdjvhldsagjhf
 
 
     RobotHardware hardware;
@@ -50,14 +49,19 @@ public class RobotCode extends OpMode {
     }
 
     public void drive() {
-        double y = -gamepad1.left_stick_y; // This is reversed
-        double x = gamepad1.left_stick_x; // Counteract imperfect strafing
-        double z = gamepad1.right_stick_x;
+        double Forward =  -gamepad1.left_stick_y; // This is reversed
+        double Strafe = gamepad1.left_stick_x; // Counteract imperfect strafing
+        double Turn = gamepad1.right_stick_x;
 
-        double leftFrontPower = y + x + z;
-        double leftRearPower = y - x + z;
-        double rightFrontPower = y - x - z;
-        double rightRearPower = y + x - z;
+        double leftFrontPower;
+        double leftRearPower;
+        double rightFrontPower;
+        double rightRearPower;
+
+         leftFrontPower = Forward + Strafe + Turn;
+         leftRearPower = Forward - Strafe + Turn;
+         rightFrontPower = Forward - Strafe-Turn;
+         rightRearPower = Forward + Strafe-Turn;
 
         if (Math.abs(leftFrontPower) > 1 || Math.abs(leftRearPower) > 1 ||
                 Math.abs(rightFrontPower) > 1 || Math.abs(rightRearPower) > 1 ){
