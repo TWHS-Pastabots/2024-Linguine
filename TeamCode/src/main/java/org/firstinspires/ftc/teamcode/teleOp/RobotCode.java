@@ -17,6 +17,8 @@ public class RobotCode extends OpMode {
     RobotHardware hardware;
    //MAKE SURE TO CHANGE THESE. THESE ARE YOUR DRIVE MODES THAT YOU NEED FOR THE CHECKPOINT
     public static final double FAST_MODE = .9;
+
+    public static final double MEDIUM_MODE = 0.7;
     public static final double SLOW_MODE = .45;
     double currentMode;
     ElapsedTime buttonTime = null;
@@ -24,7 +26,7 @@ public class RobotCode extends OpMode {
     public void init(){
         hardware = new RobotHardware();
         hardware.init(hardwareMap);
-        currentMode = FAST_MODE;
+        currentMode = MEDIUM_MODE;
         buttonTime = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
 
         telemetry.addData("Status: ", "Initialized");
@@ -105,13 +107,17 @@ public class RobotCode extends OpMode {
             rightFrontPower = -1;
         }
 
-        if(gamepad1.left_bumper && currentMode == FAST_MODE && buttonTime.time() >= 500) {
+        if(gamepad1.left_bumper) {
             currentMode = SLOW_MODE;
-            buttonTime.reset();
+
         }
-        else if(gamepad1.left_bumper && currentMode == SLOW_MODE && buttonTime.time() >= 500) {
+        else if(gamepad1.right_bumper) {
             currentMode = FAST_MODE;
-            buttonTime.reset();
+
+        }
+
+        else {
+            currentMode = MEDIUM_MODE;
         }
 
         hardware.frontLeft.setPower(leftFrontPower * currentMode);
