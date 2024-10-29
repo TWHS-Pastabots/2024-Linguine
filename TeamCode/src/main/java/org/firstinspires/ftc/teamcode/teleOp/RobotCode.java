@@ -127,8 +127,11 @@ public class RobotCode extends OpMode {
     }
 
     public void intake(){
-        //intake will go here
-    }
+        double intake;
+
+        if (gamepad2.a){
+            intake = 0.8;
+        }
 
     public void launch(){
         //the things you need to do for launch will go here

@@ -13,6 +13,10 @@ public class RobotHardware {
     public DcMotorEx rearLeft = null;
     public DcMotorEx frontRight = null;
     public DcMotorEx rearRight = null;
+    public DcMotorEx leftLaunch = null;
+    public DcMotorEx rightLaunch = null;
+    public DcMotorEx intakeMotor = null;
+
 
     public DcMotorEx[] motors;
 
@@ -52,11 +56,33 @@ public void initializeDriveMotors(HardwareMap hardwareMap){
 }
 
 public void initializeIntakeMotors(HardwareMap hardwareMap){
-    //this will be where your intake code goes eventually
+    frontLeft = hardwareMap.get(DcMotorEx.class, RobotIDS.INTAKE_MOTOR);
+
+    motors = new DcMotorEx[]{intakeMotor};
+
+    intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+    for(DcMotorEx motor : motors ){
+        motor.setPower(0.0);
+        motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+    }
 }
 
 public void initializeOutTakeMotors(HardwareMap hardwareMap){
-        //this is where your shooter code will go eventually
+    leftLaunch = hardwareMap.get(DcMotorEx.class, RobotIDS.FLYWHEEL_MOTOR1);
+    rightLaunch = hardwareMap.get(DcMotorEx.class, RobotIDS.FLYWHEEL_MOTOR2);
+
+    motors = new DcMotorEx[]{leftLaunch, rightLaunch};
+
+    leftLaunch.setDirection(DcMotorSimple.Direction.FORWARD);
+    rightLaunch.setDirection(DcMotorSimple.Direction.REVERSE);
+
+    for(DcMotorEx motor : motors ){
+        motor.setPower(0.0);
+        motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+    }
 }
 
 public void initializeServos(HardwareMap hardwareMap){
