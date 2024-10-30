@@ -12,10 +12,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class RobotCode extends OpMode {
 
 
-
-
     RobotHardware hardware;
-   //MAKE SURE TO CHANGE THESE. THESE ARE YOUR DRIVE MODES THAT YOU NEED FOR THE CHECKPOINT
+    //MAKE SURE TO CHANGE THESE. THESE ARE YOUR DRIVE MODES THAT YOU NEED FOR THE CHECKPOINT
     public static final double FAST_MODE = .9;
 
     public static final double MEDIUM_MODE = 0.7;
@@ -23,7 +21,7 @@ public class RobotCode extends OpMode {
     double currentMode;
     ElapsedTime buttonTime = null;
 
-    public void init(){
+    public void init() {
         hardware = new RobotHardware();
         hardware.init(hardwareMap);
         currentMode = MEDIUM_MODE;
@@ -33,25 +31,26 @@ public class RobotCode extends OpMode {
         telemetry.update();
     }
 
-    public void start(){
+    public void start() {
         telemetry.addData("Status: ", "Started");
         telemetry.update();
     }
-    public void loop(){
+
+    public void loop() {
         drive();
         intake();
         launch();
         lift();
         telemetry();
     }
-    public void telemetry()
-    {
+
+    public void telemetry() {
         //this is the class you should put stuff in if you want to print to the phone.
 
     }
 
     public void drive() {
-        double Forward =  -gamepad1.left_stick_y; // This is reversed
+        double Forward = -gamepad1.left_stick_y; // This is reversed
         double Strafe = gamepad1.left_stick_x; // Counteract imperfect strafing
         double Turn = gamepad1.right_stick_x;
 
@@ -60,13 +59,13 @@ public class RobotCode extends OpMode {
         double rightFrontPower;
         double rightRearPower;
 
-         leftFrontPower = Forward + Strafe + Turn;
-         leftRearPower = Forward - Strafe + Turn;
-         rightFrontPower = Forward - Strafe-Turn;
-         rightRearPower = Forward + Strafe-Turn;
+        leftFrontPower = Forward + Strafe + Turn;
+        leftRearPower = Forward - Strafe + Turn;
+        rightFrontPower = Forward - Strafe - Turn;
+        rightRearPower = Forward + Strafe - Turn;
 
         if (Math.abs(leftFrontPower) > 1 || Math.abs(leftRearPower) > 1 ||
-                Math.abs(rightFrontPower) > 1 || Math.abs(rightRearPower) > 1 ){
+                Math.abs(rightFrontPower) > 1 || Math.abs(rightRearPower) > 1) {
             // Find the largest power
             double max;
             max = Math.max(Math.abs(leftFrontPower), Math.abs(leftRearPower));
@@ -80,43 +79,35 @@ public class RobotCode extends OpMode {
             rightRearPower /= max;
         }
 
-        if(gamepad1.dpad_left){
+        if (gamepad1.dpad_left) {
             leftFrontPower = -1;
             rightRearPower = -1;
             leftRearPower = 1;
             rightFrontPower = 1;
-        }
-        else if(gamepad1.dpad_right){
+        } else if (gamepad1.dpad_right) {
             leftFrontPower = 1;
             rightRearPower = 1;
             leftRearPower = -1;
             rightFrontPower = -1;
-        }
-        else if (gamepad1.dpad_up)
-        {
-           leftFrontPower = 1;
-           rightRearPower = 1;
-           leftRearPower = 1;
-           rightFrontPower = 1;
-        }
-        else if(gamepad1.dpad_down)
-        {
+        } else if (gamepad1.dpad_up) {
+            leftFrontPower = 1;
+            rightRearPower = 1;
+            leftRearPower = 1;
+            rightFrontPower = 1;
+        } else if (gamepad1.dpad_down) {
             leftFrontPower = -1;
             leftRearPower = -1;
             rightRearPower = -1;
             rightFrontPower = -1;
         }
 
-        if(gamepad1.left_bumper) {
+        if (gamepad1.left_bumper) {
             currentMode = SLOW_MODE;
 
-        }
-        else if(gamepad1.right_bumper) {
+        } else if (gamepad1.right_bumper) {
             currentMode = FAST_MODE;
 
-        }
-
-        else {
+        } else {
             currentMode = MEDIUM_MODE;
         }
 
@@ -126,19 +117,43 @@ public class RobotCode extends OpMode {
         hardware.rearRight.setPower(rightRearPower * currentMode);
     }
 
-    public void intake(){
-        double intake;
+    public void intake() {
+        if (gamepad2.cross) {
+            hardware.intakeMotor.setPower(0.8);
+            telemetry.addData("the", "on");
 
-        if (gamepad2.a){
-            intake = 0.8;
+        } else if (gamepad2.circle) {
+            hardware.intakeMotor.setPower(-0.8);
+        }
+        else {
+            hardware.intakeMotor.setPower(0);
+        }
+    }
+
+    public void launch() {
+        if (gamepad2.left_trigger > 0) {
+            hardware.leftLaunch.setPower(-1);
+            hardware.rightLaunch.setPower(1);
+            telemetry.addData("pew", "pew");
+        } else {
+            hardware.rightLaunch.setPower(0);
+            hardware.leftLaunch.setPower(0);
+        }
+    }
+
+    public void lift() {
+        //climber code will go here
+        if (gamepad2.dpad_down) {
+            hardware.climbMotor.setPower(-0.5);
+            telemetry.addData("Motor", "weeeee");
+        }
+        else if(gamepad2.dpad_up){
+            hardware.climbMotor.setPower(0.5);
+        }
+        else {
+            hardware.climbMotor.setPower(0);
         }
 
-    public void launch(){
-        //the things you need to do for launch will go here
-
-    }
-
-    public void lift(){
-       //climber code will go here
     }
 }
+

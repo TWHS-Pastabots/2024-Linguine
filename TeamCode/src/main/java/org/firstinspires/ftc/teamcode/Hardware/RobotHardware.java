@@ -16,7 +16,7 @@ public class RobotHardware {
     public DcMotorEx leftLaunch = null;
     public DcMotorEx rightLaunch = null;
     public DcMotorEx intakeMotor = null;
-
+    public DcMotorEx climbMotor = null;
 
     public DcMotorEx[] motors;
 
@@ -27,6 +27,7 @@ public class RobotHardware {
         initializeDriveMotors(hardwareMap);
         initializeIntakeMotors(hardwareMap);
         initializeOutTakeMotors(hardwareMap);
+        initializeClimbMotors(hardwareMap);
         initializeServos(hardwareMap);
     }
 
@@ -56,15 +57,11 @@ public void initializeDriveMotors(HardwareMap hardwareMap){
 }
 
 public void initializeIntakeMotors(HardwareMap hardwareMap){
-    frontLeft = hardwareMap.get(DcMotorEx.class, RobotIDS.INTAKE_MOTOR);
+    intakeMotor = hardwareMap.get(DcMotorEx.class, RobotIDS.INTAKE_MOTOR);
 
-    motors = new DcMotorEx[]{intakeMotor};
-
-    intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-
-    for(DcMotorEx motor : motors ){
+    for(DcMotorEx motor : motors ) {
         motor.setPower(0.0);
-        motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
         motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
     }
 }
@@ -73,12 +70,17 @@ public void initializeOutTakeMotors(HardwareMap hardwareMap){
     leftLaunch = hardwareMap.get(DcMotorEx.class, RobotIDS.FLYWHEEL_MOTOR1);
     rightLaunch = hardwareMap.get(DcMotorEx.class, RobotIDS.FLYWHEEL_MOTOR2);
 
-    motors = new DcMotorEx[]{leftLaunch, rightLaunch};
+    for(DcMotorEx motor : motors ) {
+        motor.setPower(0.0);
+        motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+        motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
+    }
+}
 
-    leftLaunch.setDirection(DcMotorSimple.Direction.FORWARD);
-    rightLaunch.setDirection(DcMotorSimple.Direction.REVERSE);
+public void initializeClimbMotors(HardwareMap hardwareMap) {
+    climbMotor = hardwareMap.get(DcMotorEx.class, RobotIDS.CLIMB_MOTOR);
 
-    for(DcMotorEx motor : motors ){
+    for(DcMotorEx motor : motors ) {
         motor.setPower(0.0);
         motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
