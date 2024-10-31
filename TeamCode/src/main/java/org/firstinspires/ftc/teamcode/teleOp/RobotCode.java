@@ -132,10 +132,18 @@ public class RobotCode extends OpMode {
 
     public void launch() {
         if (gamepad2.left_trigger > 0) {
-            hardware.leftLaunch.setPower(-1);
-            hardware.rightLaunch.setPower(1);
+            hardware.leftLaunch.setPower(-0.7);
+            hardware.rightLaunch.setPower(0.7);
             telemetry.addData("pew", "pew");
-        } else {
+        }
+        else if (gamepad2.right_trigger > 0)
+        {
+            hardware.leftLaunch.setPower(-0.5);
+            hardware.rightLaunch.setPower(0.5);
+            telemetry.addData("dome", "pew");
+        }
+
+        else {
             hardware.rightLaunch.setPower(0);
             hardware.leftLaunch.setPower(0);
         }
