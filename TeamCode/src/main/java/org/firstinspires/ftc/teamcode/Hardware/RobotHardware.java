@@ -89,5 +89,6 @@ public void initializeClimbMotors(HardwareMap hardwareMap) {
 
 public void initializeServos(HardwareMap hardwareMap){
     //this is where all of your servos will go eventually
+    
 }
 }
