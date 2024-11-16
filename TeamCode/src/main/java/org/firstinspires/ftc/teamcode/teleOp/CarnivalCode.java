@@ -127,7 +127,7 @@ public class CarnivalCode extends OpMode {
     }
 
     public void intake() {
-        if (currentGamepad1.cross) {
+        if (currentGamepad1.left_trigger>0) {
             hardware.intakeMotor.setPower(0.8);
             telemetry.addData("the", "on");
 
@@ -149,7 +149,7 @@ public class CarnivalCode extends OpMode {
     }
 
     public void launch() {
-        if (gamepad1.circle) {
+        if (gamepad1.right_trigger> 0) {
             hardware.leftLaunch.setPower(-0.7);
             hardware.rightLaunch.setPower(0.7);
             telemetry.addData("pew", "pew");
