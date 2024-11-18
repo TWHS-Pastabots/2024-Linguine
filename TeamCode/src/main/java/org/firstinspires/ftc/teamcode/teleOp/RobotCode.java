@@ -151,11 +151,11 @@ public class RobotCode extends OpMode {
 
     public void lift() {
         //climber code will go here
-        if (gamepad2.dpad_down) {
+        if (gamepad2.dpad_up) {
             hardware.climbMotor.setPower(-0.5);
             telemetry.addData("Motor", "weeeee");
         }
-        else if(gamepad2.dpad_up){
+        else if(gamepad2.dpad_down){
             hardware.climbMotor.setPower(0.5);
         }
         else {
