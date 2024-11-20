@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.hardware.bosch.BNO055IMU;
 
 import org.firstinspires.ftc.robotcore.internal.system.Assert;
 
@@ -17,8 +18,9 @@ public class RobotHardware {
     public DcMotorEx rightLaunch = null;
     public DcMotorEx intakeMotor = null;
     public DcMotorEx climbMotor = null;
-
     public DcMotorEx[] motors;
+
+    public BNO055IMU imu;
 
     public RobotHardware() {}
 
@@ -64,6 +66,14 @@ public void initializeIntakeMotors(HardwareMap hardwareMap){
         motor.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
         motor.setMode(DcMotorEx.RunMode.RUN_WITHOUT_ENCODER);
     }
+    //set up IMU
+    imu = hardwareMap.get(BNO055IMU.class, RobotIDS.IMU);
+    BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+    parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+    parameters.mode = BNO055IMU.SensorMode.IMU;
+    parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+    parameters.loggingEnabled = false;
+    imu.initialize(parameters);
 }
 
 public void initializeOutTakeMotors(HardwareMap hardwareMap){
