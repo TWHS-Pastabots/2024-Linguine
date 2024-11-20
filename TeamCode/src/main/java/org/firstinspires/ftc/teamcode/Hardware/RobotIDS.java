@@ -11,5 +11,5 @@ public class RobotIDS {
     public static final String INTAKE_MOTOR = "intakeMotor";
     public static final String CLIMB_MOTOR = "climbMotor";
 
-    public static final String LAUNCH_SERVO = "launchServo";
+    public static final String IMU = "imu";
 }
