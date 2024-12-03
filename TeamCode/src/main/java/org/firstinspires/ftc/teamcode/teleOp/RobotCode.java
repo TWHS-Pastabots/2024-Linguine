@@ -16,8 +16,8 @@ public class RobotCode extends OpMode {
     //MAKE SURE TO CHANGE THESE. THESE ARE YOUR DRIVE MODES THAT YOU NEED FOR THE CHECKPOINT
     public static final double FAST_MODE = .9;
 
-    public static final double MEDIUM_MODE = 0.7;
-    public static final double SLOW_MODE = .45;
+    public static final double MEDIUM_MODE = 0.5;
+    public static final double SLOW_MODE = 0.2;
     double currentMode;
     ElapsedTime buttonTime = null;
 
