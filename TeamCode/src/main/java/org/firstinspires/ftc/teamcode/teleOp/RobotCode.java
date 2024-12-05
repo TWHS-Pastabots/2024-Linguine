@@ -16,8 +16,8 @@ public class RobotCode extends OpMode {
     //MAKE SURE TO CHANGE THESE. THESE ARE YOUR DRIVE MODES THAT YOU NEED FOR THE CHECKPOINT
     public static final double FAST_MODE = .9;
 
-    public static final double MEDIUM_MODE = 0.5;
-    public static final double SLOW_MODE = 0.2;
+    public static final double MEDIUM_MODE = 0.6;
+    public static final double SLOW_MODE = 0.35;
     double currentMode;
     ElapsedTime buttonTime = null;
 
@@ -101,13 +101,14 @@ public class RobotCode extends OpMode {
             rightFrontPower = -1;
         }
 
-        if (gamepad1.left_bumper) {
+        if (gamepad1.triangle) {
             currentMode = SLOW_MODE;
 
-        } else if (gamepad1.right_bumper) {
+        } else if (gamepad1.square) {
             currentMode = FAST_MODE;
 
-        } else {
+        } else if (gamepad1.cross)
+        {
             currentMode = MEDIUM_MODE;
         }
 
