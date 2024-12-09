@@ -101,13 +101,13 @@ public class RobotCode extends OpMode {
             rightFrontPower = -1;
         }
 
-        if (gamepad1.triangle) {
+        if (gamepad1.right_bumper) {
             currentMode = SLOW_MODE;
 
-        } else if (gamepad1.square) {
+        } else if (gamepad1.left_bumper) {
             currentMode = FAST_MODE;
 
-        } else if (gamepad1.cross)
+        } else
         {
             currentMode = MEDIUM_MODE;
         }
