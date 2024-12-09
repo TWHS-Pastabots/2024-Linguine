@@ -166,6 +166,7 @@ public class BlueAutonomous extends LinearOpMode
         // if tag is not seen, the blue two path will be run
         if(tagOfInterest == null || tagOfInterest.id == blueTwo){
             // call the blue autonomous sequences object, blue two method here
+            
         }
         else if(tagOfInterest.id == blueOne){
             // call the blue autonomous sequences object, blue one method here
