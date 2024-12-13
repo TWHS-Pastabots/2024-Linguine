@@ -16,7 +16,7 @@ public class RobotCode extends OpMode {
     //MAKE SURE TO CHANGE THESE. THESE ARE YOUR DRIVE MODES THAT YOU NEED FOR THE CHECKPOINT
     public static final double FAST_MODE = .9;
 
-    public static final double MEDIUM_MODE = 0.6;
+    public static final double MEDIUM_MODE = 0.55;
     public static final double SLOW_MODE = 0.35;
     double currentMode;
     ElapsedTime buttonTime = null;
@@ -133,14 +133,14 @@ public class RobotCode extends OpMode {
 
     public void launch() {
         if (gamepad2.left_trigger > 0) {
-            hardware.leftLaunch.setPower(-0.7);
-            hardware.rightLaunch.setPower(0.7);
+            hardware.leftLaunch.setPower(-1);
+            hardware.rightLaunch.setPower(1);
             telemetry.addData("pew", "pew");
         }
         else if (gamepad2.right_trigger > 0)
         {
-            hardware.leftLaunch.setPower(-0.5);
-            hardware.rightLaunch.setPower(0.5);
+            hardware.leftLaunch.setPower(-0.45);
+            hardware.rightLaunch.setPower(0.45);
             telemetry.addData("dome", "pew");
         }
 
@@ -152,11 +152,11 @@ public class RobotCode extends OpMode {
 
     public void lift() {
         //climber code will go here
-        if (gamepad2.dpad_up) {
+        if (gamepad2.dpad_down) {
             hardware.climbMotor.setPower(-0.5);
             telemetry.addData("Motor", "weeeee");
         }
-        else if(gamepad2.dpad_down){
+        else if(gamepad2.dpad_up){
             hardware.climbMotor.setPower(0.5);
         }
         else {
